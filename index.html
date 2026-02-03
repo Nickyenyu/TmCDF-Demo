@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TmCDF 台灣癌症新藥多元支持基金</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body { font-family: "微軟正黑體", sans-serif; background-color: #fff; }
+        
+        /* =========================================
+           1. Header 樣式 (嚴格上下兩層版)
+           ========================================= */
+        .saas_two_main_header {
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding-top: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* 第一層：Logo 區 (左右分開) */
+        .header-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 10px;
+        }
+
+        /* 第二層：選單區 (置中橫排) */
+        .header-bottom-row {
+            border-top: 1px solid #eee;
+            padding: 5px 0;
+        }
+
+        .header-bottom-row ul {
+            display: flex;
+            justify-content: space-between; /* 選單項目平均分散 */
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* 選單文字設定 (粗體、灰色、大字) */
+        .header-bottom-row a {
+            display: block;
+            color: #888;          /* 灰色 */
+            font-weight: 900;     /* 極粗體 */
+            font-size: 20px;      /* 字體大小 */
+            text-decoration: none;
+            padding: 12px 5px;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+
+        /* 滑鼠移過去 (橘色) */
+        .header-bottom-row a:hover,
+        .header-bottom-row a.active {
+            color: #ff7803;
+        }
+
+        /* =========================================
+           2. 手機版選單 (預設隱藏)
+           ========================================= */
+        .mobile-toggle-btn { display: none; }
+        .mobile-menu-container {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000;
+        }
+
+        /* RWD: 當螢幕小於 1200px 時切換 */
+        @media (max-width: 1200px) {
+            .header-bottom-row { display: none; } /* 隱藏桌機選單 */
+            .logo-right { display: none; } /* 隱藏右邊 Logo 避免太擠 */
+            
+            .mobile-toggle-btn { 
+                display: block; 
+                font-size: 28px; 
+                color: #ff7803; 
+                cursor: pointer;
+                padding-bottom: 5px;
+            }
+            .mobile-menu-container.show { display: block; }
+        }
+
+        .mobile-menu-content {
+            background: white;
+            width: 280px;
+            height: 100%;
+            padding: 20px;
+            position: absolute;
+            left: -280px;
+            transition: left 0.3s ease;
+        }
+        .mobile-menu-container.show .mobile-menu-content { left: 0; }
+        
+        .mobile-nav ul { list-style: none; padding: 0; }
+        .mobile-nav li { border-bottom: 1px solid #f0f0f0; }
+        .mobile-nav a { display: block; padding: 15px 0; color: #333; font-weight: bold; font-size: 18px; text-decoration: none; }
+
+        /* =========================================
+           3. 其他頁面特效 (Banner, Card等)
+           ========================================= */
+        .text-outline-orange {
+            color: white; font-weight: 900; line-height: 1.4;
+            text-shadow: 3px 3px 0 #ff7803, -1px -1px 0 #ff7803, 1px -1px 0 #ff7803, -1px 1px 0 #ff7803, 1px 1px 0 #ff7803, 3px 3px 5px rgba(0,0,0,0.3);
+        }
+        .tag-orange {
+            background-color: #ea9675; color: #333; font-weight: bold; font-size: 20px; 
+            padding: 10px 40px 10px 20px; display: inline-block; margin-bottom: 20px; 
+            border-radius: 4px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .issue-card { transition: transform 0.3s; cursor: pointer; }
+        .issue-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .detail-view { display: none; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+
+<body>
+
+    <header class="saas_two_main_header">
+        <div class="container">
+            
+            <div class="header-top-row">
+                <div class="logo-left">
+                    <a href="#">
+                        <img src="assets/logo.svg" alt="TmCDF" style="height: 75px; width: auto;" onerror="this.src='https://via.placeholder.com/200x75?text=TmCDF'">
+                    </a>
+                </div>
+                
+                <div class="mobile-toggle-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <div class="logo-right">
+                    <a href="https://www.canceraway.org.tw/" target="_blank">
+                        <img src="assets/FCF_logo.png" alt="FCF" style="height: 60px; width: auto;" onerror="this.src='https://via.placeholder.com/180x60?text=FCF+Logo'">
+                    </a>
+                </div>
+            </div>
+
+            <div class="header-bottom-row">
+<nav>
+    <ul>
+        <li><a href="index.html">首頁</a></li>
+        <li><a href="news.html">最新消息</a></li>
+        <li><a href="tracking.html">追蹤平台</a></li>
+        <li><a href="tmcdf.html">基金緣起</a></li>
+        <li><a href="act.html">未來行動</a></li>
+        <li><a href="story.html">病友故事</a></li>
+        <li><a href="qa.html">常見問題</a></li>
+        <li><a href="thanks.html">致謝名單</a></li>
+        <li><a href="contact.html">聯絡我們</a></li> </ul>
+</nav>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="mobile-menu-container" id="mobileMenuContainer">
+        <div class="mobile-menu-content">
+            <div style="text-align: right;">
+                <i class="far fa-times-circle" onclick="toggleMobileMenu()" style="font-size: 30px; color: #ff7803; cursor: pointer;"></i>
+            </div>
+            <div class="text-center my-4">
+                <img src="assets/logo.svg" alt="Logo" style="height: 50px;">
+            </div>
+            <nav class="mobile-nav">
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="news.html">最新消息</a></li>
+                    <li><a href="#">追蹤平台</a></li>
+                    <li><a href="#">基金緣起</a></li>
+                    <li><a href="#">未來行動</a></li>
+                    <li><a href="#">病友故事</a></li>
+                    <li><a href="#">常見問題</a></li>
+                    <li><a href="#">致謝名單</a></li>
+                    <li><a href="#">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div style="flex-grow: 1;" onclick="toggleMobileMenu()"></div>
+    </div>
+
+    <div style="position: relative; width: 100%; overflow: hidden;">
+        <img src="assets/圖片 1.png" style="width: 100%; height: auto; min-height: 500px; object-fit: cover; display: block;" alt="Top Banner">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; z-index: 10;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-10">
+                        <div class="tag-orange">TmCDF 台灣癌症新藥多元支持基金&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <h1 class="display-3 text-outline-orange">提升癌症新藥可近性<br>減輕癌友家庭負擔</h1>
+                        <div style="margin-top: 40px;">
+                            <button class="btn" style="background-color: #f7ce55; color: #333; font-weight: bold; padding: 12px 30px; border: 2px solid #333; border-radius: 12px; box-shadow: 4px 4px 0px #333; font-size: 18px;">
+                                <i class="fas fa-coins"></i> 目前專款支付進度
+                            </button>
+                            <div style="margin-top: 15px; padding-left: 10px;">
+                                <a href="#" style="color: #0056b3; font-size: 16px; font-weight: bold;">(切換至追蹤平台頁籤)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="text-center mb-5" style="background-image: radial-gradient(#cfcfcf 2px, transparent 2px); background-size: 20px 20px; padding: 30px 0;">
+                <h3 class="font-weight-bold d-inline-block px-4" style="background-color: white; color: #555; font-size: 1.5rem;">
+                    理想中的台灣癌症新藥運作流程
+                </h3>
+            </div>
+            <div class="row align-items-start mb-5">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <img src="assets/萬用圖.jpg" class="img-fluid rounded shadow-sm" alt="Patient" style="width: 100%; object-fit: cover;">
+                </div>
+                <div class="col-lg-7 pl-lg-5">
+                    <h2 class="font-weight-bold mb-4" style="font-size: 2.5rem; letter-spacing: 1px;">癌症新藥的引進</h2>
+                    <p class="text-secondary" style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                        我們期待的癌藥基金給付流程：由 CHPTA 建立前瞻科技評估與醫療科技評估機制，及早掌握未來 2 至 3 年可能上市、具臨床價值的新療法
+                    </p>
+                    <p class="text-secondary" style="font-size: 1.2rem; line-height: 1.8;">
+                        當新藥面臨健保給付尚未到位的空窗期，先由癌症新藥基金啟動暫時性支付，讓病人不必因等待而錯過治療黃金期
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <img src="assets/癌藥基金運作模式.png" onerror="this.src='assets/癌藥基金運作模式.jpg'" class="img-fluid w-100" alt="癌藥基金運作模式">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="text-center mb-5" style="background-image: radial-gradient(#cfcfcf 2px, transparent 2px); background-size: 20px 20px; padding: 30px 0;">
+                <h3 class="font-weight-bold d-inline-block px-4" style="background-color: white; color: #555; font-size: 1.5rem;">
+                    理想中的台灣癌症新藥運作流程
+                </h3>
+            </div>
+            <div class="row align-items-start mb-5">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <img src="assets/萬用圖.jpg" class="img-fluid rounded shadow-sm" alt="Patient" style="width: 100%; object-fit: cover;">
+                </div>
+                <div class="col-lg-7 pl-lg-5">
+                    <h2 class="font-weight-bold mb-4" style="font-size: 2.5rem; letter-spacing: 1px;">專款應加速審核</h2>
+                    <p class="text-secondary" style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                        行政院正式編列公務預算，啟動癌症新藥暫時性支付專款，協助癌友在健保給付前及早用藥。
+                    </p>
+                    <p class="text-secondary" style="font-size: 1.2rem; line-height: 1.8;">
+                        2025 年首年編列 50 億元，我們期待 2026 年提升至 100 億元，並於 2027 年起逐年擴充，讓癌症新藥基金邁向穩定、永續的制度支持。
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <img src="assets/預算圖.jpg" onerror="this.src='assets/預算圖.png'" class="img-fluid w-100" alt="預算規劃圖">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="saas_two_footer" class="saas_two_footer_section" style="background-color: #e9e9e9;">
+        <div class="s2-copyright text-center py-3" style="color: #666; font-size: 14px;">
+            2026 © 台灣癌症基金會版權所有
+        </div>
+    </footer>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EWPT7GYD2Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EWPT7GYD2Q');
+    </script>
+    
+    <script>
+        function showDetail(id) {
+            document.getElementById('list-view').style.display = 'none';
+            if(id === 'issue1') document.getElementById('issue1-detail').style.display = 'block';
+            if(id === 'issue2') document.getElementById('issue2-detail').style.display = 'block';
+        }
+        function backToList() {
+            document.getElementById('issue1-detail').style.display = 'none';
+            document.getElementById('issue2-detail').style.display = 'none';
+            document.getElementById('list-view').style.display = 'block';
+        }
+        function showStory(id) {
+            document.getElementById('story-list-view').style.display = 'none';
+            if(id === 'story1') document.getElementById('story1-detail').style.display = 'block';
+            if(id === 'story2') document.getElementById('story2-detail').style.display = 'block';
+            document.getElementById('stories-section').scrollIntoView({behavior: 'smooth'});
+        }
+        function backToStoryList() {
+            document.getElementById('story1-detail').style.display = 'none';
+            document.getElementById('story2-detail').style.display = 'none';
+            document.getElementById('story-list-view').style.display = 'block';
+        }
+        function toggleMobileMenu() {
+            var menu = document.getElementById("mobileMenuContainer");
+            if (menu.classList.contains("show")) {
+                menu.classList.remove("show");
+            } else {
+                menu.classList.add("show");
+            }
+        }
+    </script>
+</body>
+</html>

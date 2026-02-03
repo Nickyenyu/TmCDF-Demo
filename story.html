@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>病友故事 - TmCDF 台灣癌症新藥多元支持基金</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body { font-family: "微軟正黑體", sans-serif; background-color: #fff; }
+        
+        /* =========================================
+           Header 樣式 (嚴格遵守規則)
+           ========================================= */
+        .saas_two_main_header { background: #fff; position: sticky; top: 0; z-index: 1000; padding-top: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .header-top-row { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 10px; }
+        .header-bottom-row { border-top: 1px solid #eee; padding: 5px 0; }
+        .header-bottom-row ul { display: flex; justify-content: space-between; list-style: none; padding: 0; margin: 0; }
+        
+        .header-bottom-row a { 
+            display: block; 
+            color: #888; 
+            font-weight: 900; 
+            font-size: 20px; 
+            text-decoration: none; 
+            padding: 12px 5px; 
+            transition: color 0.2s; 
+            white-space: nowrap; 
+        }
+        
+        /* 滑鼠移過去 & 作用中狀態：只變橘色文字，無背景色 */
+        .header-bottom-row a:hover, 
+        .header-bottom-row a.active { 
+            color: #ff7803; 
+            background-color: transparent !important;
+        }
+        
+        /* 手機版選單 */
+        .mobile-toggle-btn { display: none; }
+        .mobile-menu-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; }
+        @media (max-width: 1200px) {
+            .header-bottom-row { display: none; }
+            .logo-right { display: none; }
+            .mobile-toggle-btn { display: block; font-size: 28px; color: #ff7803; cursor: pointer; padding-bottom: 5px; }
+            .mobile-menu-container.show { display: block; }
+        }
+        .mobile-menu-content { background: white; width: 280px; height: 100%; padding: 20px; position: absolute; left: -280px; transition: left 0.3s ease; }
+        .mobile-menu-container.show .mobile-menu-content { left: 0; }
+        .mobile-nav ul { list-style: none; padding: 0; }
+        .mobile-nav li { border-bottom: 1px solid #f0f0f0; }
+        .mobile-nav a { display: block; padding: 15px 0; color: #333; font-weight: bold; font-size: 18px; text-decoration: none; }
+
+        /* =========================================
+           病友故事 專屬樣式
+           ========================================= */
+        .breadcurmb-section {
+            background-color: #ff7803; /* 橘底 */
+            padding: 60px 0; 
+            text-align: center; 
+            color: #fff;
+        }
+        .breadcurmb-title h2 { font-weight: 900; font-size: 36px; margin-bottom: 10px; line-height: 1.4; }
+        .breadcurmb-title p { opacity: 0.9; letter-spacing: 2px; font-weight: 500; font-size: 16px; margin-top: 10px; text-transform: uppercase; }
+
+        /* 圖片滿版設定 */
+        .img-full-width {
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            margin: 0; 
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="saas_two_main_header">
+        <div class="container">
+            <div class="header-top-row">
+                <div class="logo-left">
+                    <a href="index.html">
+                        <img src="assets/logo.svg" alt="TmCDF" style="height: 75px; width: auto;" onerror="this.src='https://via.placeholder.com/200x75?text=TmCDF'">
+                    </a>
+                </div>
+                <div class="mobile-toggle-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></div>
+                <div class="logo-right">
+                    <a href="https://www.canceraway.org.tw/" target="_blank">
+                        <img src="assets/FCF_logo.png" alt="FCF" style="height: 60px; width: auto;" onerror="this.src='https://via.placeholder.com/180x60?text=FCF+Logo'">
+                    </a>
+                </div>
+            </div>
+            <div class="header-bottom-row">
+<nav>
+    <ul>
+        <li><a href="index.html">首頁</a></li>
+        <li><a href="news.html">最新消息</a></li>
+        <li><a href="tracking.html">追蹤平台</a></li>
+        <li><a href="tmcdf.html">基金緣起</a></li>
+        <li><a href="act.html">未來行動</a></li>
+        <li><a href="story.html">病友故事</a></li>
+        <li><a href="qa.html">常見問題</a></li>
+        <li><a href="thanks.html">致謝名單</a></li>
+        <li><a href="contact.html">聯絡我們</a></li> </ul>
+</nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu-container" id="mobileMenuContainer">
+        <div class="mobile-menu-content">
+            <div style="text-align: right;"><i class="far fa-times-circle" onclick="toggleMobileMenu()" style="font-size: 30px; color: #ff7803; cursor: pointer;"></i></div>
+            <div class="text-center my-4"><img src="assets/logo.svg" alt="Logo" style="height: 50px;"></div>
+            <nav class="mobile-nav">
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="news.html">最新消息</a></li>
+                    <li><a href="tracking.html">追蹤平台</a></li>
+                    <li><a href="tmcdf.html">基金緣起</a></li>
+                    <li><a href="act.html">未來行動</a></li>
+                    <li><a href="story.html">病友故事</a></li>
+                    <li><a href="#">常見問題</a></li>
+                    <li><a href="#">致謝名單</a></li>
+                    <li><a href="#">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div style="flex-grow: 1;" onclick="toggleMobileMenu()"></div>
+    </div>
+
+    <section class="breadcurmb-section">
+        <div class="container">
+            <div class="breadcurmb-title">
+                <h2>文章及投書</h2>
+                <p>POSTS AND ARTICLES</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-12 p-0">
+                    
+                    <img src="病友故事/文章截圖.png" class="img-full-width" alt="文章截圖" onerror="this.src='病友故事/文章截圖.jpg'">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="saas_two_footer" class="saas_two_footer_section" style="background-color: #e9e9e9;">
+        <div class="s2-copyright text-center py-3" style="color: #666; font-size: 14px;">
+            2026 © 台灣癌症基金會版權所有
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            var menu = document.getElementById("mobileMenuContainer");
+            if (menu.classList.contains("show")) {
+                menu.classList.remove("show");
+            } else {
+                menu.classList.add("show");
+            }
+        }
+    </script>
+</body>
+</html>

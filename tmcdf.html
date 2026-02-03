@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基金緣起 - TmCDF 台灣癌症新藥多元支持基金</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body { font-family: "微軟正黑體", sans-serif; background-color: #fff; }
+        
+        /* =========================================
+           Header 樣式
+           ========================================= */
+        .saas_two_main_header { background: #fff; position: sticky; top: 0; z-index: 1000; padding-top: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .header-top-row { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 10px; }
+        .header-bottom-row { border-top: 1px solid #eee; padding: 5px 0; }
+        .header-bottom-row ul { display: flex; justify-content: space-between; list-style: none; padding: 0; margin: 0; }
+        
+        .header-bottom-row a { 
+            display: block; color: #888; font-weight: 900; font-size: 20px; 
+            text-decoration: none; padding: 12px 5px; transition: color 0.2s; white-space: nowrap; 
+        }
+        
+        .header-bottom-row a:hover, 
+        .header-bottom-row a.active { color: #ff7803; background-color: transparent !important; }
+        
+        /* 手機版選單 */
+        .mobile-toggle-btn { display: none; }
+        .mobile-menu-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; }
+        @media (max-width: 1200px) {
+            .header-bottom-row { display: none; }
+            .logo-right { display: none; }
+            .mobile-toggle-btn { display: block; font-size: 28px; color: #ff7803; cursor: pointer; padding-bottom: 5px; }
+            .mobile-menu-container.show { display: block; }
+        }
+        .mobile-menu-content { background: white; width: 280px; height: 100%; padding: 20px; position: absolute; left: -280px; transition: left 0.3s ease; }
+        .mobile-menu-container.show .mobile-menu-content { left: 0; }
+        .mobile-nav ul { list-style: none; padding: 0; }
+        .mobile-nav li { border-bottom: 1px solid #f0f0f0; }
+        .mobile-nav a { display: block; padding: 15px 0; color: #333; font-weight: bold; font-size: 18px; text-decoration: none; }
+
+        /* =========================================
+           基金緣起 專屬樣式
+           ========================================= */
+        .breadcurmb-section {
+            background-color: #ff7803; padding: 60px 0; text-align: center; color: #fff;
+        }
+        .breadcurmb-title h2 { font-weight: 900; font-size: 36px; margin-bottom: 10px; line-height: 1.4; }
+        .breadcurmb-title p { opacity: 0.9; letter-spacing: 1px; font-weight: 500; font-size: 16px; margin-top: 10px; }
+
+        /* 圖片堆疊 */
+        .img-stack {
+            width: 100%; height: auto; display: block; margin: 0; padding: 0; border: none;
+        }
+
+        /* 引言區塊 */
+        .quote-section {
+            padding: 60px 20px; margin: 0; background-color: #fff; text-align: center;
+        }
+        .quote-text {
+            font-size: 24px; font-weight: bold; color: #333; line-height: 1.6;
+            max-width: 800px; margin: 0 auto; position: relative;
+        }
+        .quote-text::before { content: "“"; font-size: 60px; color: #ff7803; line-height: 0; vertical-align: -20px; margin-right: 10px; }
+        .quote-text::after { content: "”"; font-size: 60px; color: #ff7803; line-height: 0; vertical-align: -40px; margin-left: 10px; }
+
+        /* 痛點分析區塊 */
+        .integration_section { padding: 80px 0; overflow: hidden; }
+        .integration_text h2 {
+            font-weight: 900; color: #333; font-size: 2.5rem; margin-bottom: 20px;
+            position: relative; padding-bottom: 15px;
+        }
+        .integration_text h2::after {
+            content: ''; position: absolute; left: 0; bottom: 0; width: 50px; height: 4px; background-color: #ff7803;
+        }
+        .integration_text p { color: #666; font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px; }
+        
+        /* 數字計數器 */
+        .counter-wrapper h1 { font-weight: 900; font-size: 4rem; color: #dc3545; }
+        .counter-wrapper .h3 { font-size: 1.5rem; color: #333; margin-left: 5px; }
+        .counter-wrapper h5 { color: #888; font-weight: bold; }
+
+        /* 動畫樣式 */
+        .fade-in-section {
+            opacity: 0; transform: translateY(20px); transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .fade-in-section.is-visible { opacity: 1; transform: none; }
+
+        /* =========================================
+           新增：倡議行動列表樣式 (News Style)
+           ========================================= */
+        .blog-feed-post { margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 40px; }
+        
+        /* 圖片容器：背景圖模式 */
+        .saasio-blog-img {
+            width: 100%; height: 240px;
+            background-color: #eee; 
+            background-position: center !important; 
+            background-size: cover !important;
+            border-radius: 8px; margin-bottom: 20px;
+        }
+        
+        .saasio-blog-text h3 a {
+            font-size: 22px; font-weight: bold; color: #333; text-decoration: none;
+            line-height: 1.4; display: block; margin-bottom: 15px; transition: 0.3s;
+        }
+        .saasio-blog-text h3 a:hover { color: #ff7803; }
+        
+        .saasio-blog-text p { color: #666; line-height: 1.6; margin-bottom: 20px; }
+        
+        .blog-read-more { color: #ff7803; font-weight: bold; text-decoration: none; border-bottom: 2px solid #ff7803; padding-bottom: 2px; }
+        .blog-read-more:hover { color: #d66400; border-color: #d66400; }
+    </style>
+</head>
+
+<body>
+
+    <header class="saas_two_main_header">
+        <div class="container">
+            <div class="header-top-row">
+                <div class="logo-left">
+                    <a href="index.html">
+                        <img src="assets/logo.svg" alt="TmCDF" style="height: 75px; width: auto;" onerror="this.src='https://via.placeholder.com/200x75?text=TmCDF'">
+                    </a>
+                </div>
+                <div class="mobile-toggle-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></div>
+                <div class="logo-right">
+                    <a href="https://www.canceraway.org.tw/" target="_blank">
+                        <img src="assets/FCF_logo.png" alt="FCF" style="height: 60px; width: auto;" onerror="this.src='https://via.placeholder.com/180x60?text=FCF+Logo'">
+                    </a>
+                </div>
+            </div>
+            <div class="header-bottom-row">
+                <nav>
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="news.html">最新消息</a></li>
+                        <li><a href="tracking.html">追蹤平台</a></li>
+                        <li><a href="tmcdf.html" class="active">基金緣起</a></li> 
+                        <li><a href="#">未來行動</a></li>
+                        <li><a href="#">病友故事</a></li>
+                        <li><a href="#">常見問題</a></li>
+                        <li><a href="#">致謝名單</a></li>
+                        <li><a href="#">聯絡我們</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu-container" id="mobileMenuContainer">
+        <div class="mobile-menu-content">
+            <div style="text-align: right;"><i class="far fa-times-circle" onclick="toggleMobileMenu()" style="font-size: 30px; color: #ff7803; cursor: pointer;"></i></div>
+            <div class="text-center my-4"><img src="assets/logo.svg" alt="Logo" style="height: 50px;"></div>
+<nav>
+    <ul>
+        <li><a href="index.html">首頁</a></li>
+        <li><a href="news.html">最新消息</a></li>
+        <li><a href="tracking.html">追蹤平台</a></li>
+        <li><a href="tmcdf.html">基金緣起</a></li>
+        <li><a href="act.html">未來行動</a></li>
+        <li><a href="story.html">病友故事</a></li>
+        <li><a href="qa.html">常見問題</a></li>
+        <li><a href="thanks.html">致謝名單</a></li>
+        <li><a href="contact.html">聯絡我們</a></li> </ul>
+</nav>
+        </div>
+        <div style="flex-grow: 1;" onclick="toggleMobileMenu()"></div>
+    </div>
+
+    <section class="breadcurmb-section">
+        <div class="container">
+            <div class="breadcurmb-title">
+                <h2>為什麼要成立</h2>
+                <h2>TmCDF 台灣癌症新藥多元支持基金</h2>
+                <p>Taiwan multi-support Cancer Drugs Fund, 簡稱 TmCDF</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-12 p-0">
+                    
+                    <img src="基金緣起/核心目標 1.png" class="img-stack" alt="核心目標 1" onerror="this.style.display='none'">
+                    <img src="基金緣起/核心目標 2.png" class="img-stack" alt="核心目標 2" onerror="this.style.display='none'">
+
+                    <div class="quote-section">
+                        <p class="quote-text mb-0">
+                            我們一次又一次聽到病友說：「醫生說有一個更好的藥，可是我們家真的負擔不起。有沒有別的辦法？ 」
+                        </p>
+                    </div>
+
+                    <img src="基金緣起/核心目標 3.png" class="img-stack" alt="核心目標 3" onerror="this.style.display='none'">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="issue-wait" class="integration_section bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-12 mb-4 mb-lg-0 fade-in-section">
+                    <div class="integration_img">
+                        <img src="assets/wait.jpg" alt="等待健保給付時間長" class="img-fluid rounded shadow-sm">
+                    </div>
+                </div>
+                <div class="col-lg-5 fade-in-section">
+                    <div class="integration_text">
+                        <h2>病人等待健保給付時間長</h2>
+                        <p>在二代健保施行後，新藥審查所需審查時間大幅增加，非癌藥平均需審查約 398 天，然而癌症新藥卻需要審查 782 天，約2年。</p>
+                        <p>這些時間尚不包括申請藥品許可證所需時間，癌症病友真正使用到新藥往往得等三、四年以上。</p>
+                    </div>
+                    <div class="row justify-content-center counter-wrapper mt-4">
+                        <div class="col-md-6 text-center">
+                            <h1 class="counter text-danger mb-1">
+                                <span class="counter-value" data-target="782">0</span><span class="h3">天</span>
+                            </h1>
+                            <h5 class="text-muted">癌症新藥平均審查天數</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5 fade-in-section">
+                <div class="col-12">
+                    <img src="assets/issue1-lg.png" onerror="this.style.display='none'" class="w-100 d-none d-lg-block rounded shadow-sm">
+                    <img src="assets/issue1-xs.png" onerror="this.style.display='none'" class="w-100 d-lg-none rounded shadow-sm">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="issue-limit" class="integration_section bg-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-12 mb-4 mb-lg-0 fade-in-section">
+                    <div class="integration_img">
+                        <img src="assets/limit.jpg" alt="健保給付範圍限縮" class="img-fluid rounded shadow-sm">
+                    </div>
+                </div>
+                <div class="col-lg-5 fade-in-section">
+                    <div class="integration_text">
+                        <h2>健保給付範圍限縮</h2>
+                        <p>健保給付範圍比核准的適應症小，通常會先通過非第一線使用的藥物，或限制給付療程。</p>
+                        <p>依據 2019 年藥品查驗中心科技 醫療科技評估(HTA)報告顯示，癌症新藥藥品許可證登載，適應症可適用患者資格如為 100 人，最終能獲得健保給付資格者僅有 30.4 人。許多癌症家庭終需面對是否自費用藥的艱難抉擇。</p>
+                        <p>新藥被迫退線使用（因財務考量，導致新藥只給付晚期、重症等少數患者），一般患者反而錯失早期治療機會。</p>
+                    </div>
+                    <div class="row justify-content-center counter-wrapper mt-4">
+                        <div class="col-md-6 text-center">
+                            <h1 class="counter text-danger mb-1">
+                                <span class="counter-value" data-target="30.4">0</span><span class="h3">%</span>
+                            </h1>
+                            <h5 class="text-muted">癌症新藥適應症範圍獲得健保給付比例</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-5 fade-in-section">
+                    <h3 class="font-weight-bold mb-3"><i class="fas fa-exclamation-circle mr-2 text-warning"></i>保守估計僅 3 成癌症患者，所需用藥能獲得健保即時給付</h3>
+                    <img src="assets/30percent.png" onerror="this.style.display='none'" class="img-fluid rounded shadow-sm w-100">
+                    <p class="text-center mt-3 text-muted" style="font-size: 14px;">*僅計算進入HTA的藥品，不含沒進入或退出HTA的癌藥(以 2019 通過健保給付之癌症新藥為例)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-12 p-0">
+                    <img src="基金緣起/核心目標 4.png" class="img-stack" alt="核心目標 4" onerror="this.style.display='none'">
+                    <img src="基金緣起/核心目標 5.png" class="img-stack" alt="核心目標 5" onerror="this.style.display='none'">
+                    <img src="基金緣起/核心目標 6.png" class="img-stack" alt="核心目標 6" onerror="this.style.display='none'">
+                    <img src="基金緣起/核心目標 7.png" class="img-stack" alt="核心目標 7" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="act-feed" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 style="font-weight: 900; color: #333;">倡議行動歷程</h2>
+                <div style="width: 50px; height: 3px; background-color: #ff7803; margin: 15px auto;"></div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-12">
+                    
+                    <div class="blog-feed-post">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="saasio-blog-img" style="background: url('uploadsmall/act-list.jpg') center;">
+                                    <img src="assets/blank.png" style="display:none;" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <div class="saasio-blog-text pl-lg-4 mt-3 mt-lg-0">
+                                    <h3><a href="#">2025年-台灣癌症新藥多元支持基金(TmCDF)倡議行動</a></h3>
+                                    <p class="text-muted">（點擊閱讀更多查看詳情）</p>
+                                    <a class="blog-read-more" href="#">閱讀更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog-feed-post">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="saasio-blog-img" style="background: url('uploadsmall/File_20241111_125659.jpg') center;"></div>
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <div class="saasio-blog-text pl-lg-4 mt-3 mt-lg-0">
+                                    <h3><a href="#">2024年-台灣癌症新藥多元支持基金(TmCDF)倡議行動</a></h3>
+                                    <p class="text-muted"></p>
+                                    <a class="blog-read-more" href="#">閱讀更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog-feed-post">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="saasio-blog-img" style="background: url('uploadsmall/File_20241111_161936.jpg') center;"></div>
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <div class="saasio-blog-text pl-lg-4 mt-3 mt-lg-0">
+                                    <h3><a href="#">2023年-台灣癌症新藥多元支持基金(TmCDF)倡議行動</a></h3>
+                                    <p class="text-muted"></p>
+                                    <a class="blog-read-more" href="#">閱讀更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog-feed-post">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="saasio-blog-img" style="background: url('uploadsmall/File_20220728_141137.png') center;"></div>
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <div class="saasio-blog-text pl-lg-4 mt-3 mt-lg-0">
+                                    <h3><a href="#">2022年-台灣癌症新藥多元支持基金(TmCDF)制度倡議行動</a></h3>
+                                    <p>台灣癌症基金會與台灣年輕病友協會、中華民國乳癌病友協會向相關單位提出「台灣癌症新藥多元支持基金」政策建言書，希冀政府有關單位能參採</p>
+                                    <a class="blog-read-more" href="#">閱讀更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog-feed-post">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="saasio-blog-img" style="background: url('uploadsmall/File_20220728_141112.png') center;"></div>
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <div class="saasio-blog-text pl-lg-4 mt-3 mt-lg-0">
+                                    <h3><a href="#">2021年-台灣癌症新藥多元支持基金(TmCDF)制度可行性研究</a></h3>
+                                    <p>台灣癌症基金會對癌症新藥可近性，業已累積相關數據及研究成果，邀請專家學者、團體、醫師代表等舉辦工作坊及座談會</p>
+                                    <a class="blog-read-more" href="#">閱讀更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog-feed-post">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="saasio-blog-img" style="background: url('uploadsmall/File_20220728_141046.png') center;"></div>
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <div class="saasio-blog-text pl-lg-4 mt-3 mt-lg-0">
+                                    <h3><a href="#">2020年-癌症新藥共同負擔可行性深度訪談</a></h3>
+                                    <p>遂透過2020年「癌症新藥共同負擔可行性之專家意見研究」，訪談並彙整各方專家意見，並舉辦「癌症新藥可近性工作坊」，各方專家之意見，研擬可行之制度方案，以期促進新藥可近及健保永續</p>
+                                    <a class="blog-read-more" href="#">閱讀更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="saas_two_footer" class="saas_two_footer_section" style="background-color: #e9e9e9;">
+        <div class="s2-copyright text-center py-3" style="color: #666; font-size: 14px;">
+            2026 © 台灣癌症基金會版權所有
+        </div>
+    </footer>
+
+    <script>
+        // 1. 手機選單
+        function toggleMobileMenu() {
+            var menu = document.getElementById("mobileMenuContainer");
+            if (menu.classList.contains("show")) {
+                menu.classList.remove("show");
+            } else {
+                menu.classList.add("show");
+            }
+        }
+
+        // 2. 捲動觸發動畫
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        const counter = entry.target.querySelector('.counter-value');
+                        if (counter && !counter.classList.contains('counted')) {
+                            animateValue(counter, 0, parseFloat(counter.getAttribute('data-target')), 2000);
+                            counter.classList.add('counted');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                if (end % 1 !== 0) {
+                    obj.innerHTML = (progress * (end - start) + start).toFixed(1);
+                } else {
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                }
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+    </script>
+</body>
+</html>
