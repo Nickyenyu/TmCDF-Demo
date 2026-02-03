@@ -31,6 +31,7 @@
             white-space: nowrap; 
         }
         
+        /* 滑鼠移過去 & 作用中狀態 */
         .header-bottom-row a:hover, 
         .header-bottom-row a.active { 
             color: #ff7803; 
@@ -63,19 +64,18 @@
 
         /* 主視覺圖片 */
         .top-banner-img {
-            width: 100%; height: auto; display: block; margin-bottom: 0; /* 這裡不需要留白，讓列表直接疊上來 */
+            width: 100%; height: auto; display: block; margin-bottom: 0; 
         }
 
-        /* ★★★ 關鍵修正：將問題列表大幅往上拉 ★★★ */
+        /* 將問題列表大幅往上拉 */
         .question-list-container {
-            /* 這裡控制往上疊多少，數字越負(越小)，列表就跑得越高 */
             margin-top: -500px; 
             position: relative;
             z-index: 10; 
             padding-bottom: 50px;
         }
 
-        /* 手機版調整：手機不用疊那麼高，不然會變得很擠 */
+        /* 手機版調整 */
         @media (max-width: 991px) {
             .question-list-container {
                 margin-top: -150px; 
@@ -158,18 +158,19 @@
                 </div>
             </div>
             <div class="header-bottom-row">
-<nav>
-    <ul>
-        <li><a href="index.html">首頁</a></li>
-        <li><a href="news.html">最新消息</a></li>
-        <li><a href="tracking.html">追蹤平台</a></li>
-        <li><a href="tmcdf.html">基金緣起</a></li>
-        <li><a href="act.html">未來行動</a></li>
-        <li><a href="story.html">病友故事</a></li>
-        <li><a href="qa.html">常見問題</a></li>
-        <li><a href="thanks.html">致謝名單</a></li>
-        <li><a href="contact.html">聯絡我們</a></li> </ul>
-</nav>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="news.html">最新消息</a></li>
+                        <li><a href="tracking.html">追蹤平台</a></li>
+                        <li><a href="tmcdf.html">基金緣起</a></li>
+                        <li><a href="act.html">未來行動</a></li>
+                        <li><a href="story.html">病友故事</a></li>
+                        <li><a href="qa.html" class="active">常見問題</a></li>
+                        <li><a href="thanks.html">致謝名單</a></li>
+                        <li><a href="contact.html">聯絡我們</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </header>
@@ -187,8 +188,8 @@
                     <li><a href="act.html">未來行動</a></li>
                     <li><a href="story.html">病友故事</a></li>
                     <li><a href="qa.html">常見問題</a></li>
-                    <li><a href="#">致謝名單</a></li>
-                    <li><a href="#">聯絡我們</a></li>
+                    <li><a href="thanks.html">致謝名單</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
                 </ul>
             </nav>
         </div>
@@ -209,15 +210,18 @@
         <div class="container-fluid p-0">
              <div class="row no-gutters">
                 <div class="col-12">
-                    <img src="常見問題/常見問題 1.png" class="top-banner-img" alt="常見問題主視覺" onerror="this.style.display='none'">
+                    <img src="常見問題/常見問題1.png" class="top-banner-img" alt="常見問題主視覺" onerror="this.src='常見問題/常見問題 1.png'">
                 </div>
             </div>
         </div>
 
         <div class="container question-list-container">
-            <div class="row justify-content-end"> <div class="col-lg-8 col-12"> <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="row justify-content-end"> 
+                <div class="col-lg-8 col-12"> 
+                    
+                    <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-header-stack">
-                            <img src="常見問題/問題集 1.png" class="faq-bg-bar" alt="Q1">
+                            <img src="常見問題/問題集1.png" class="faq-bg-bar" alt="Q1" onerror="this.src='常見問題/問題集 1.png'">
                             <img src="常見問題/下拉紐.png" class="faq-toggle-btn" alt="+">
                         </div>
                         <div class="faq-body">
@@ -227,7 +231,7 @@
 
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-header-stack">
-                            <img src="常見問題/問題集 2.png" class="faq-bg-bar" alt="Q2">
+                            <img src="常見問題/問題集2.png" class="faq-bg-bar" alt="Q2" onerror="this.src='常見問題/問題集 2.png'">
                             <img src="常見問題/下拉紐.png" class="faq-toggle-btn" alt="+">
                         </div>
                         <div class="faq-body">
@@ -237,7 +241,7 @@
 
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-header-stack">
-                            <img src="常見問題/問題集 3.png" class="faq-bg-bar" alt="Q3">
+                            <img src="常見問題/問題集3.png" class="faq-bg-bar" alt="Q3" onerror="this.src='常見問題/問題集 3.png'">
                             <img src="常見問題/下拉紐.png" class="faq-toggle-btn" alt="+">
                         </div>
                         <div class="faq-body">
@@ -247,7 +251,7 @@
 
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-header-stack">
-                            <img src="常見問題/問題集 4.png" class="faq-bg-bar" alt="Q4">
+                            <img src="常見問題/問題集4.png" class="faq-bg-bar" alt="Q4" onerror="this.src='常見問題/問題集 4.png'">
                             <img src="常見問題/下拉紐.png" class="faq-toggle-btn" alt="+">
                         </div>
                         <div class="faq-body">
@@ -257,7 +261,7 @@
 
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-header-stack">
-                            <img src="常見問題/問題集 5.png" class="faq-bg-bar" alt="Q5">
+                            <img src="常見問題/問題集5.png" class="faq-bg-bar" alt="Q5" onerror="this.src='常見問題/問題集 5.png'">
                             <img src="常見問題/下拉紐.png" class="faq-toggle-btn" alt="+">
                         </div>
                         <div class="faq-body">
@@ -267,7 +271,7 @@
 
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-header-stack">
-                            <img src="常見問題/問題集 6.png" class="faq-bg-bar" alt="Q6">
+                            <img src="常見問題/問題集6.png" class="faq-bg-bar" alt="Q6" onerror="this.src='常見問題/問題集 6.png'">
                             <img src="常見問題/下拉紐.png" class="faq-toggle-btn" alt="+">
                         </div>
                         <div class="faq-body">

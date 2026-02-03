@@ -61,12 +61,13 @@
         .breadcurmb-title h2 { font-weight: 900; font-size: 36px; margin-bottom: 10px; line-height: 1.4; }
         .breadcurmb-title p { opacity: 0.9; letter-spacing: 2px; font-weight: 500; font-size: 16px; margin-top: 10px; text-transform: uppercase; }
 
-        /* 左側主圖 */
+        /* 左側圖片樣式 (共用) */
         .left-feature-img {
             width: 100%;
             height: auto;
             border-radius: 15px; /* 圓角 */
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px; /* 圖片之間的間距 */
         }
 
         /* 右側列表區 */
@@ -102,7 +103,6 @@
             height: auto;
             display: block;
             border-radius: 10px;
-            /* box-shadow: 0 4px 8px rgba(0,0,0,0.1); 如果圖片本身沒陰影，可以打開這個 */
         }
 
         /* 2. 十字按鈕 */
@@ -132,13 +132,6 @@
             border: 1px solid #eee;
         }
         .faq-body p { margin: 0; color: #555; line-height: 1.8; font-size: 16px; }
-        
-        /* 合作廠商圖片樣式 */
-        .partner-img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
     </style>
 </head>
 
@@ -160,18 +153,19 @@
                 </div>
             </div>
             <div class="header-bottom-row">
-<nav>
-    <ul>
-        <li><a href="index.html">首頁</a></li>
-        <li><a href="news.html">最新消息</a></li>
-        <li><a href="tracking.html">追蹤平台</a></li>
-        <li><a href="tmcdf.html">基金緣起</a></li>
-        <li><a href="act.html">未來行動</a></li>
-        <li><a href="story.html">病友故事</a></li>
-        <li><a href="qa.html">常見問題</a></li>
-        <li><a href="thanks.html">致謝名單</a></li>
-        <li><a href="contact.html">聯絡我們</a></li> </ul>
-</nav>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="news.html">最新消息</a></li>
+                        <li><a href="tracking.html">追蹤平台</a></li>
+                        <li><a href="tmcdf.html">基金緣起</a></li>
+                        <li><a href="act.html">未來行動</a></li>
+                        <li><a href="story.html">病友故事</a></li>
+                        <li><a href="qa.html">常見問題</a></li>
+                        <li><a href="thanks.html" class="active">致謝名單</a></li>
+                        <li><a href="contact.html">聯絡我們</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </header>
@@ -190,7 +184,7 @@
                     <li><a href="story.html">病友故事</a></li>
                     <li><a href="qa.html">常見問題</a></li>
                     <li><a href="thanks.html">致謝名單</a></li>
-                    <li><a href="#">聯絡我們</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
                 </ul>
             </nav>
         </div>
@@ -212,13 +206,15 @@
                 
                 <div class="col-lg-6 col-md-12">
                     <img src="assets/act-list.jpg" class="left-feature-img" alt="特別致謝主圖" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Not+Found'">
+                    
+                    <img src="致謝/合作廠商.png" class="left-feature-img" alt="合作廠商名單" onerror="this.style.display='none'">
                 </div>
 
                 <div class="col-lg-6 col-md-12 thanks-list-container">
                     
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-header-stack">
-                            <img src="致謝/致謝 1.png" class="faq-bg-bar" alt="1.政府單位">
+                            <img src="致謝/致謝1.png" class="faq-bg-bar" alt="1.政府單位" onerror="this.src='致謝/致謝 1.png'">
                             <img src="致謝/十字.png" class="faq-toggle-btn" alt="+">
                         </div>
                         <div class="faq-body">
@@ -228,17 +224,7 @@
 
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-header-stack">
-                            <img src="致謝/致謝 2.png" class="faq-bg-bar" alt="2.產業">
-                            <img src="致謝/十字.png" class="faq-toggle-btn" alt="+">
-                        </div>
-                        <div class="faq-body">
-                            <img src="致謝/合作廠商.png" class="partner-img" alt="合作廠商名單" onerror="this.style.display='none'">
-                        </div>
-                    </div>
-
-                    <div class="faq-item" onclick="toggleFaq(this)">
-                        <div class="faq-header-stack">
-                            <img src="致謝/致謝 3.png" class="faq-bg-bar" alt="3.學者">
+                            <img src="致謝/致謝2.png" class="faq-bg-bar" alt="2.產業" onerror="this.src='致謝/致謝 2.png'">
                             <img src="致謝/十字.png" class="faq-toggle-btn" alt="+">
                         </div>
                         <div class="faq-body">
@@ -248,7 +234,17 @@
 
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-header-stack">
-                            <img src="致謝/致謝 4.png" class="faq-bg-bar" alt="4.醫師">
+                            <img src="致謝/致謝3.png" class="faq-bg-bar" alt="3.學者" onerror="this.src='致謝/致謝 3.png'">
+                            <img src="致謝/十字.png" class="faq-toggle-btn" alt="+">
+                        </div>
+                        <div class="faq-body">
+                            <p>XXXXXXXXXXXXXXXXXXXX</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-header-stack">
+                            <img src="致謝/致謝4.png" class="faq-bg-bar" alt="4.醫師" onerror="this.src='致謝/致謝 4.png'">
                             <img src="致謝/十字.png" class="faq-toggle-btn" alt="+">
                         </div>
                         <div class="faq-body">
